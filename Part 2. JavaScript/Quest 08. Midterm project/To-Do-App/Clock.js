@@ -14,7 +14,6 @@ class Clock{
 
     getDom(){
         return this.#dom;
-        
     }
 
     prepareClock() {
@@ -22,14 +21,15 @@ class Clock{
         const minutes = date.getMinutes();
         const hours = date.getHours();
         const seconds = date.getSeconds();
-        debugger;
         this.#dom.innerText = `${hours < 10 ? `0${hours}` : hours}:${
             minutes < 10 ? `0${minutes}` : minutes}:${
             seconds < 10 ? `0${seconds}` : seconds}`;
     }
 
     startClock(){
+        let _this = this;
         this.prepareClock();
-        setInterval(this.prepareClock, 1000);
+        let set = setInterval(this.prepareClock.bind(this), 1000);
+        console.log(set);
     }
 }
