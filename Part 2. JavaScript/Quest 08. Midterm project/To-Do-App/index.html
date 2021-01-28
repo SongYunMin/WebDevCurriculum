@@ -6,19 +6,21 @@
     <title>Title</title>
 </head>
 <body>
-    <div class="desktop"></div>
+<section class="desktop">
+    <article class="clockContainer">
+        <span class="clock">00:00</span>
+    </article>
 
-    <template class="template-clock">
-        <article class="clockContainer">
-            <span class="clock">00:00</span>
-        </article>
-    </template>
+    <article>
+        
+    </article>
+</section>
 
 
-    <script src="Desktop.js"></script>
-    <script src="Clock.js"></script>
-    <script>
-        const desktop = new Desktop(document.querySelector('.desktop'));
-    </script>
+<script src="Desktop.js"></script>
+<script src="Clock.js"></script>
+<script>
+    const desktop = new Desktop(document.querySelector('.desktop'));
+</script>
 </body>
 </html>

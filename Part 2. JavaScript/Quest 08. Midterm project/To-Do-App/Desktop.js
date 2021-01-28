@@ -2,13 +2,14 @@
 class Desktop {
     #dom
     #clock
+    #todos
     constructor(dom) {
         this.#dom = dom;
         this.#clock = new Clock();
-        this.showClock(this.#clock);
+        this.#clock = new Todos();
     }
 
-    showClock(clock){
-        this.#dom.appendChild(clock.getDom());
+    showTodos(todos){
+
     }
 }

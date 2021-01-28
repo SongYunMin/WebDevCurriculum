@@ -9,3 +9,15 @@ body{
     padding: 0;
     background-color: #d9eaff;
 }
+
+.clockContainer{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.clockContainer .clock{
+    position: absolute;
+    font-size: 150px;
+    top: 250px;
+}
