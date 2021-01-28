@@ -25,8 +25,17 @@ body{
 .todosContainer{
     position: relative;
     display: flex;
+    width: 100%;
+    flex-direction: column;
     justify-content: center;
+    align-content: center;
+
     top: 400px;
+}
+
+.todosContainer .inputTodos{
+    display: block;
+    width: 200px;
 }
 
 .todosContainer .todos{
