@@ -11,14 +11,17 @@
         <span class="clock">00:00</span>
     </article>
 
-    <article>
-        
+    <article class=todosContainer>
+        <input type="text" placeholder="할일을 입력하세요."/>
+        <ul class="todos">
+        </ul>
     </article>
 </section>
 
 
 <script src="Desktop.js"></script>
 <script src="Clock.js"></script>
+<script src="Todos.js"></script>
 <script>
     const desktop = new Desktop(document.querySelector('.desktop'));
 </script>

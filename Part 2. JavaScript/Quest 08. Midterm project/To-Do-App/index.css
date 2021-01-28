@@ -21,3 +21,14 @@ body{
     font-size: 150px;
     top: 250px;
 }
+
+.todosContainer{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    top: 400px;
+}
+
+.todosContainer .todos{
+
+}
