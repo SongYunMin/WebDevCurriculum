@@ -26,18 +26,12 @@ body{
     position: relative;
     display: flex;
     width: 100%;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    align-content: center;
-
     top: 400px;
 }
 
-.todosContainer .inputTodos{
+.inputTodos{
     display: block;
     width: 200px;
-}
-
-.todosContainer .todos{
-
 }
