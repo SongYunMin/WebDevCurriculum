@@ -1,12 +1,14 @@
 // 배경화면 관련 기능 구현
 class Desktop {
-    #dom
-    #clock
-    #todos
+    #DesktopDom
+    #clockDom
+    #todoDom
+    #greetingDom
     constructor(dom) {
-        this.#dom = dom;
-        this.#clock = new Clock();
-        this.#clock = new Todos();
+        this.#DesktopDom = dom;
+        this.#clockDom = new Clock();
+        this.#todoDom = new Todos();
+        this.#greetingDom = new Greeting();
     }
 
     showTodos(todos){
