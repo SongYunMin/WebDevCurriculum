@@ -10,17 +10,37 @@ body{
     background-color: #d9eaff;
 }
 
+/* Clock Container */
+
 .clockContainer{
     position: relative;
     display: flex;
     justify-content: center;
 }
 
+.clockContainer .title{
+    position: absolute;
+    font-size: 80px;
+    top:70px;
+}
+
 .clockContainer .clock{
     position: absolute;
     font-size: 150px;
-    top: 250px;
+    top: 170px;
 }
+
+/* Greeting Container */
+
+.greetingContainer{
+    display: flex;
+    position: absolute;
+    width: 100%;
+    top:350px;
+    justify-content: center;
+}
+
+/* To D0 List Container */
 
 .todosContainer{
     position: relative;
@@ -31,9 +51,28 @@ body{
     top: 400px;
 }
 
-.inputTodos{
+.todosContainer .inputTodos{
     display: block;
     width: 200px;
     height: 60px;
     margin-top:30px;
 }
+
+.todosContainer .todolist{
+    font-size: 30px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todosContainer .todoList .todoElement{
+    margin-bottom: 10px;
+}
+
+.delBt{
+    font-size: 25px;
+    height: 30px;
+    background: transparent;
+    border-style: none;
+    margin-bottom: 20px;
+}
+

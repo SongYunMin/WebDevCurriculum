@@ -54,11 +54,13 @@ class Todos {
         const newId = this.#todos.length + 1;
 
         delBt.innerHTML = " &#x26D4";               // Emoji
+        delBt.classList.add('delBt');
         delBt.addEventListener("click", e => {
             this.deleteTodoList(e);
         });
 
         span.innerText = text;                      // list element 요소
+        list.classList.add('todoElement');
         list.appendChild(span);
         list.appendChild(delBt);
         list.id = newId;
