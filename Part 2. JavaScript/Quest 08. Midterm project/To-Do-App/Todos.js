@@ -37,7 +37,7 @@ class Todos {
 
     getInputText() {
         console.log(this.#todoForm);
-        this.#todoForm.addEventListener("submit", e =>{
+        this.#todoForm.addEventListener("submit", (e)=>{
             e.preventDefault();
             const text = this.#todoInput.value;
             this.setTodoList(text);

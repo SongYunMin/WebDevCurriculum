@@ -20,9 +20,12 @@ class Greeting {
     // Web 시작 시 LocalStorage 저장 값을 확인하는 메서드
     hasLocalStorage() {
         const loadedGreeting = localStorage.getItem(this.#GREETING_LS);
-        if (loadedGreeting !== null) {            // 데이터가 있다면?
+        if (loadedGreeting !== null) {              // 데이터가 있다면?
             const parsedGreeting = JSON.parse(loadedGreeting);
+            this.#greetingInput.remove();
             this.setGreeting(parsedGreeting.name);
+        }else{                                      // 데이터가 없다면?
+
         }
     }
 
@@ -30,10 +33,9 @@ class Greeting {
         const greeting = document.createElement("span");
         greeting.innerText = text;
         greeting.classList.add('greeting');
+        // TODO : Form 을 없애서 Append 되지 않음
         this.#greetingForm.appendChild(greeting);
-        this.#greeting = {name : this.#greetingInput.value};
-        // TODO : Greeting Message 삭제
-        this.#greetingForm.remove();
+        this.#greeting = {name : text};
         this.saveUserName();
 
     }
@@ -44,8 +46,7 @@ class Greeting {
             e.preventDefault();
             const text = this.#greetingInput.value;
             this.setGreeting(text);
-            this.#greetingInput.value = "";
-
+            this.#greetingInput.remove();
         });
     }
 
