@@ -59,17 +59,17 @@ class Desktop {
 
     // New Window
     newWindow() {
-        let window;
+        let newWindow;
         let test = 1;
         this.#dom.addEventListener('new-window', (e) => {
-            window = new Window();
+            newWindow = new NewWindow();
             debugger;
             // this.#dom.appendChild(window.getDom());
         });
         test = 1;
         this.#dom.addEventListener('delete-window', () => {
             // e.detail.windowDom.remove();
-            window = null;
+            newWindow = null;
         })
     }
 
@@ -159,7 +159,7 @@ class Folder {
 }
 
 // Window Class
-class Window {
+class NewWindow {
     #dom
     #xbox
 
