@@ -4,11 +4,13 @@ class Desktop {
     #clockDom
     #todoDom
     #greetingDom
+    #locationDom
     constructor(dom) {
         this.#DesktopDom = dom;
         this.#clockDom = new Clock();
         this.#todoDom = new Todos();
         this.#greetingDom = new Greeting();
+        this.#locationDom = new Location();
     }
 
     showTodos(todos){
