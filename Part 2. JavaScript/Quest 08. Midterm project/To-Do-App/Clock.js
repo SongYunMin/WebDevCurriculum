@@ -6,8 +6,6 @@ class Clock{
     }
 
     prepareDom(){
-        // const t = document.querySelector('.template-clock');
-        // const tmpl = document.importNode(t.content, true);
         const clockContainer = document.querySelector('.clockContainer');
         this.#dom = clockContainer.querySelector('.clock');
     }

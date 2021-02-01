@@ -7,7 +7,7 @@ body{
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: #d9eaff;
+    background-image: url("./img/background.png");
 }
 
 /* Clock Container */
@@ -20,18 +20,19 @@ body{
 
 .clockContainer .title{
     position: absolute;
+    color: #FFFFFF;
     font-size: 80px;
     top:70px;
 }
 
 .clockContainer .clock{
     position: absolute;
+    color: #f8fafa;
     font-size: 150px;
     top: 170px;
 }
 
 /* Greeting Container */
-
 .greetingContainer{
     display: flex;
     position: absolute;
@@ -40,8 +41,12 @@ body{
     justify-content: center;
 }
 
-/* To D0 List Container */
+.greetingContainer .greetingForm {
+    font-size: 30px;
+    color: #f9fbfb;
+}
 
+/* To D0 List Container */
 .todosContainer{
     position: relative;
     display: flex;
@@ -54,7 +59,7 @@ body{
 .todosContainer .inputTodos{
     display: block;
     width: 200px;
-    height: 60px;
+    height: 30px;
     margin-top:30px;
 }
 
@@ -62,6 +67,7 @@ body{
     font-size: 30px;
     flex-direction: column;
     align-items: center;
+    color: snow;
 }
 
 .todosContainer .todoList .todoElement{
@@ -76,3 +82,15 @@ body{
     margin-bottom: 20px;
 }
 
+/* Location Contatiner */
+.locationContainer{
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    top: 10px;
+}
+
+.locationContainer .location{
+    font-size: 30px;
+    color: #f9fbfb;
+}

@@ -8,7 +8,6 @@ class Greeting {
         this.prepareDom();
         this.hasLocalStorage();
         this.getInputText();
-
     }
 
     prepareDom() {

@@ -22,7 +22,7 @@ class Location {
 
     hasLocalStorage() {
         const loadLocation = localStorage.getItem(this.#LOCATION_LS);
-        if (loadLocation === null) {        // 날씨 데이터를 가지고 있다면
+        if (loadLocation === null) {
             console.log("날씨 데이터 없음. geolocation API 요청 중..");
             this.getLocation();
         } else {
@@ -45,13 +45,20 @@ class Location {
         ).then(function (response) {
             return response.json();
         }).then((json) => {
-            this.#weather = json.main.temp;
+            this.#weather = json.main.temp + " ";
+            console.log(this.#weather);
             this.#location = json.name;
+            this.setLocation();
         });
     }
 
     saveLocation(lat,lon){
         const locationObj = {lat, lon};
         localStorage.setItem(this.#LOCATION_LS, JSON.stringify(locationObj));
+    }
+
+    setLocation(){
+        this.#locationDom.innerText = '내 위치 : ' + this.#location
+            +" "+ this.#weather + " 도";
     }
 }

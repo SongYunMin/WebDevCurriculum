@@ -12,8 +12,4 @@ class Desktop {
         this.#greetingDom = new Greeting();
         this.#locationDom = new Location();
     }
-
-    showTodos(todos){
-
-    }
 }
