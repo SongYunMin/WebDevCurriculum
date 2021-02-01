@@ -58,7 +58,8 @@ class Location {
     }
 
     setLocation(){
-        this.#locationDom.innerText = '내 위치 : ' + this.#location
-            +" "+ this.#weather + " 도";
+        // this.#locationDom.innerText = '내 위치 : ' + this.#location
+        //     +" "+ this.#weather + " 도";
+        this.#locationDom.innerText = `내 위치 : ${this.#location} ${this.#weather}도`;
     }
 }

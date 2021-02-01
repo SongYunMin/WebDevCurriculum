@@ -51,7 +51,8 @@ class Todos {
         const list = document.createElement("li");
         const delBt = document.createElement("button");
         const span = document.createElement("span");
-        const newId = this.#todos.length + 1;
+        // const newId = this.#todos.length + 1;
+        const newId = Number(new Date());
 
         delBt.innerHTML = " &#x26D4";               // Emoji
         delBt.classList.add('delBt');

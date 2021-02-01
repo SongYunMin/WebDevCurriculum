@@ -24,6 +24,10 @@ class Clock{
             seconds < 10 ? `0${seconds}` : seconds}`;
     }
 
+    // setTime(time){
+    //     return `${time < 10 ? `0${time}` : time}`
+    // }
+
     startClock(){
         this.prepareClock();
         let set = setInterval(this.prepareClock.bind(this), 1000);
