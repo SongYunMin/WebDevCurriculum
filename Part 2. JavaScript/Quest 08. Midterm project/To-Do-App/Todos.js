@@ -53,7 +53,9 @@ class Todos {
         const span = li.querySelector('.todoElement');
         const delBt = li.querySelector('.delBt');
         const newId = Number(new Date()) + 1;
+        console.log(newId);
 
+        li.id = String(newId);
         span.innerHTML = text;
         this.#todoList.appendChild(li);
         delBt.addEventListener("click", e => {
@@ -67,6 +69,23 @@ class Todos {
         this.saveTodoList();
     }
 
+    saveTodoList(){
+        localStorage.setItem(this.#TODOS_LS, JSON.stringify(this.#todos));
+    }
+
+    deleteTodoList(e) {
+        const bt = e.target;
+        const li = bt.parentNode;
+        console.log(li);
+        li.setAttribute('id', 'del');
+        console.log(this.#todos);
+
+        this.#todoList.removeChild(li);
+        // filter로 LS 삭제되지 않음 (id 문제인듯)
+        this.#todos = this.#todos.filter(toDo => toDo.id);
+        this.saveTodoList();
+    }
+
     // setTodoList(text) {
     //     const list = document.createElement("li");
     //     const delBt = document.createElement("button");
@@ -76,7 +95,6 @@ class Todos {
     //
     //     delBt.innerHTML = " &#x26D4";               // Emoji
     //     delBt.classList.add('delBt');
-    //
     //
     //     span.innerText = text;                      // list element 요소
     //     list.classList.add('todoElement');
@@ -92,19 +110,4 @@ class Todos {
     //     this.saveTodoList();
     // }
 
-    saveTodoList(){
-        localStorage.setItem(this.#TODOS_LS, JSON.stringify(this.#todos));
-    }
-
-    deleteTodoList(e) {
-        const bt = e.target;
-        const li = bt.parentNode;
-        console.log(li);
-        this.#todoList.removeChild(li);
-        // filter로 LS 삭제되지 않음 (id 문제인듯)
-        this.#todos = this.#todos.filter(toDo => {
-            return toDo.id !== parseInt(li.id);
-        });
-        this.saveTodoList();
-    }
 }
