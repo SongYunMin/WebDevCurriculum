@@ -40,32 +40,25 @@ class Todos {
         this.#todoForm.addEventListener("submit", (e)=>{
             e.preventDefault();
             const text = this.#todoInput.value;
+            // this.setTodoList(text);
             this.setTodoList(text);
             this.#todoInput.value = "";
         });
     }
 
+    setTodoList(text){
+        const t = document.querySelector('.template-todo-element');
+        const tmpl = document.importNode(t.content, true);
+        const li = tmpl.querySelector('.todo-li');
+        const span = li.querySelector('.todoElement');
+        const delBt = li.querySelector('.delBt');
+        const newId = Number(new Date()) + 1;
 
-
-    setTodoList(text) {
-        const list = document.createElement("li");
-        const delBt = document.createElement("button");
-        const span = document.createElement("span");
-        // const newId = this.#todos.length + 1;
-        const newId = Number(new Date());
-
-        delBt.innerHTML = " &#x26D4";               // Emoji
-        delBt.classList.add('delBt');
+        span.innerHTML = text;
+        this.#todoList.appendChild(li);
         delBt.addEventListener("click", e => {
             this.deleteTodoList(e);
         });
-
-        span.innerText = text;                      // list element 요소
-        list.classList.add('todoElement');
-        list.appendChild(span);
-        list.appendChild(delBt);
-        list.id = newId;
-        this.#todoList.appendChild(list);
         const toDoObj = {
             text: text,
             id: newId
@@ -73,6 +66,31 @@ class Todos {
         this.#todos.push(toDoObj);
         this.saveTodoList();
     }
+
+    // setTodoList(text) {
+    //     const list = document.createElement("li");
+    //     const delBt = document.createElement("button");
+    //     const span = document.createElement("span");
+    //     // const newId = this.#todos.length + 1;
+    //     const newId = Number(new Date());
+    //
+    //     delBt.innerHTML = " &#x26D4";               // Emoji
+    //     delBt.classList.add('delBt');
+    //
+    //
+    //     span.innerText = text;                      // list element 요소
+    //     list.classList.add('todoElement');
+    //     list.appendChild(span);
+    //     list.appendChild(delBt);
+    //     list.id = newId;
+    //     this.#todoList.appendChild(list);
+    //     const toDoObj = {
+    //         text: text,
+    //         id: newId
+    //     };
+    //     this.#todos.push(toDoObj);
+    //     this.saveTodoList();
+    // }
 
     saveTodoList(){
         localStorage.setItem(this.#TODOS_LS, JSON.stringify(this.#todos));
@@ -82,9 +100,9 @@ class Todos {
         const bt = e.target;
         const li = bt.parentNode;
         console.log(li);
-        this.#todoList.removeChild(li);     // 완전 삭제 아님
+        this.#todoList.removeChild(li);
+        // filter로 LS 삭제되지 않음 (id 문제인듯)
         this.#todos = this.#todos.filter(toDo => {
-            console.log(li.id, (toDo.id));
             return toDo.id !== parseInt(li.id);
         });
         this.saveTodoList();
