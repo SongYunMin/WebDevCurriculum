@@ -76,13 +76,8 @@ class Todos {
     deleteTodoList(e) {
         const bt = e.target;
         const li = bt.parentNode;
-        console.log(li);
-        li.setAttribute('id', 'del');
-        console.log(this.#todos);
-
+        this.#todos = this.#todos.filter(toDo => toDo.id !== parseInt(li.id));
         this.#todoList.removeChild(li);
-        // filter로 LS 삭제되지 않음 (id 문제인듯)
-        this.#todos = this.#todos.filter(toDo => toDo.id);
         this.saveTodoList();
     }
 
@@ -109,5 +104,4 @@ class Todos {
     //     this.#todos.push(toDoObj);
     //     this.saveTodoList();
     // }
-
 }
