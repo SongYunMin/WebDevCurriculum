@@ -516,7 +516,7 @@ RIP 프로토콜을 사용하여 테이블을 만들 수 있으며 Distance Vect
 - 발전된 형태의 Distance Vector Routing Protocol
   - 'Path Vector Routing Protocol 이라고도 불림
 - 끝 없이 순환되는 문제점이 없도록 함
-  - 즉, BGP는 Looping-Free하는 라우팅을 보장하며, 순환을 피할 수 있도록 목적지까지 가는 경로 정보를 제공
+  - BGP는 RIP와 같은 거리값에 기본한 라우팅 알고리즘이지만, 목적지까지의 경로값을 전송하는 것이 아니고, 목적지까지 도달하는데 경유하는 AS의 순서를 전송. 즉, BGP는 Looping-Free하는 라우팅을 보장하며, 순환을 피할 수 있도록 목적지까지 가는 경로 정보를 제공
 
 > traceroute의 작동 원리는 어떻게 될까요?
 
