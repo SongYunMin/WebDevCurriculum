@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/SongYunMin/WebDevCurriculum/issues"
   },
-  "homepage": "https://github.com/SongYunMin/WebDevCurriculum#readme"
+  "homepage": "https://github.com/SongYunMin/WebDevCurriculum#readme",
+  "dependencies": {
+    "url": "^0.11.0"
+  }
 }
