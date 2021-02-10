@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/SongYunMin/WebDevCurriculum#readme",
   "dependencies": {
+    "querystring": "^0.2.0",
     "url": "^0.11.0"
   }
 }
