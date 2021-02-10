@@ -1,5 +1,3 @@
----
-
 # Question
 
 - node.js는 어떤 식으로 동작하나요?
@@ -22,37 +20,37 @@ Java 언어가 모든 OS 운영체제에서 Virtual Machine 환경 안에서 Run
 
 ```jsx
 function first() {
-   second()
-   console.log('첫 번째 실행')
+   second();
+   console.log('첫 번째 실행');
 }
 function second() {
-   third()
-   console.log('두 번째 실행')
+   third();
+   console.log('두 번째 실행');
 }
 function third() {
-   console.log('세 번째 실행')
+   console.log('세 번째 실행');
 }
-first()
+first();
 ```
 
 **위 코드의 출력은 세 번째, 두 번째, 첫 번째 실행으로 실행 됩니다.** 이 부분의 실행 순서를 이야기 하기 위해선 호출 스택의 자료 구조로 first(), second(), third() 가 메모리에 들어가게 되어 있습니다. 스택의 특징으로는 Last In First Out(후입선출) 의 특징을 가지고 있습니다.
 
 위의 코드는 first, second, third 함수가 정의 되어있고 first 함수 부터 호출을 합니다. 체이닝으로 실행이 연결되어 있고 first가 먼저 호출 되어있지만 second 함수는 first 함수에서 호출되고 second 함수는 third 함수에서 호출되게 됩니다. third 함수는 console.log를 실행하게 되고 가장 윗 부분에 상주해 있다가 스택에서 빠져 나오게 됩니다. 그 다음 second 안에 있는 console.log를 실행하게 되고 최종적으로는 first의 console.log를 가장 나중에 실행하게 됩니다. 결과는 아래와 같습니다.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8aaa9ee3-5d47-4de5-9bb3-273bc3473222/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8aaa9ee3-5d47-4de5-9bb3-273bc3473222/Untitled.png)
+![img.png](img.png)
 
 ```jsx
 function run() {
-   console.log(`3초 후 실행함`)
+   console.log(`3초 후 실행함`);
 }
-console.log(`시작`)
-setTimeout(run, 3000)
-console.log(`끝`)
+console.log(`시작`);
+setTimeout(run, 3000);
+console.log(`끝`);
 ```
 
 위 코드의 출력은 아래와 같이 실행이 됩니다.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/273e17ff-e6a9-485e-9dc1-22ad64341f2a/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/273e17ff-e6a9-485e-9dc1-22ad64341f2a/Untitled.png)
+![img_1.png](img_1.png)
 
 setTimeout은 시간을 지연시켜 함수를 실행하는 타이머 함수입니다. 시간은 정해져있지만 실제로 자바스크립트는 비동기 처리에 대한 함수가 많기 때문에 위의 예제를 통해 이벤트 루프를 설명하자면 이렇습니다.실제로 동기적인 처리를 할 때는 자바스크립트는 컨텍스트 상 호출 스택 구조에서 가장 나중에 처리된 부분이 가장 먼저 처리 되는 현상을 볼 수가 있었습니다. 그 다음 console.log를 통해 찍어주는 단순한 키워드인 ‘시작' 과 ‘끝' 이후 setTimeout 이라는 타이머 함수를 통해 ‘3초 후에 실행함' 이라는 키워드가 가장 마지막에 동작하는 것을 보실 수 있었습니다. 이 때 비동기적인 결과에 대한 부분들은 태스크 큐라는 부분에 적재를 시키게 되고 큐는 자료구조상 First In First Out(선입선출) 특성을 가지고 있습니다.
 
@@ -60,7 +58,7 @@ setTimeout은 시간을 지연시켜 함수를 실행하는 타이머 함수입�
 
 # Node Module System
 
-프론트에서 대부분 <script src=’{소스위치}’> 자바스크립트 임포트 모듈을 통해 변수나 오브젝트를 불러오는 방법이 있었다면 Node.JS에서는 아래와 같이 다른 자바스크립트 파일에서 참조할 수 있습니다.
+프론트에서 대부분 `<script src=’{소스위치}’>` 자바스크립트 임포트 모듈을 통해 변수나 오브젝트를 불러오는 방법이 있었다면 Node.JS에서는 아래와 같이 다른 자바스크립트 파일에서 참조할 수 있습니다.
 
 ```jsx
 <script src='{소스위치}'>
