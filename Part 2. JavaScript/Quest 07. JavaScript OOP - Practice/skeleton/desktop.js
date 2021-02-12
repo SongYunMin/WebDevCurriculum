@@ -60,13 +60,11 @@ class Desktop {
     // New Window
     newWindow() {
         let newWindow;
-        let test = 1;
         this.#dom.addEventListener('new-window', (e) => {
             newWindow = new NewWindow();
             debugger;
             // this.#dom.appendChild(window.getDom());
         });
-        test = 1;
         this.#dom.addEventListener('delete-window', () => {
             // e.detail.windowDom.remove();
             newWindow = null;
