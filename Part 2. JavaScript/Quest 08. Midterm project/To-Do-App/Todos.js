@@ -80,28 +80,4 @@ class Todos {
         this.#todoList.removeChild(li);
         this.saveTodoList();
     }
-
-    // setTodoList(text) {
-    //     const list = document.createElement("li");
-    //     const delBt = document.createElement("button");
-    //     const span = document.createElement("span");
-    //     // const newId = this.#todos.length + 1;
-    //     const newId = Number(new Date());
-    //
-    //     delBt.innerHTML = " &#x26D4";               // Emoji
-    //     delBt.classList.add('delBt');
-    //
-    //     span.innerText = text;                      // list element 요소
-    //     list.classList.add('todoElement');
-    //     list.appendChild(span);
-    //     list.appendChild(delBt);
-    //     list.id = newId;
-    //     this.#todoList.appendChild(list);
-    //     const toDoObj = {
-    //         text: text,
-    //         id: newId
-    //     };
-    //     this.#todos.push(toDoObj);
-    //     this.saveTodoList();
-    // }
 }
