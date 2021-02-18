@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" href="/style.css">
-		<script src="/notepad.js"></script>
-	</head>
-	<body>
-		<!-- TODO: 이 곳을 채워 클라이언트를 만들어 보세요 -->
-		<script>
-			let notepad = new Notepad();
-		</script>
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./notepad.js"></script>
+    <script src="./header.js"></script>
+</head>
+<body>
+<section class="desktop">
+    <article class="tab1"></article>
+</section>
+
+<template class="template-header">
+    <header class="main-header">
+        <ul class="tabList">
+
+        </ul>
+    </header>
+</template>
+
+<template class="template-tabBT">
+    <li class="tabBT-li">
+        <button class="tabBT-bt">TEST</button>
+    </li>
+</template>
+
+
+<script>
+    let notepad = new Notepad(
+        document.querySelector('.tab1')
+    );
+</script>
+</body>
 </html>

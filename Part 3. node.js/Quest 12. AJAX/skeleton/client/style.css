@@ -1,3 +1,9 @@
 * {
-	/* TODO: 필요한 CSS를 채워넣어 보세요! */
+
+}
+
+.tabBT-li{
+    width: 50px;
+    height: 70px;
+    list-style: none;
 }
