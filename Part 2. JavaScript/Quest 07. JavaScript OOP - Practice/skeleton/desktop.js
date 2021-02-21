@@ -62,12 +62,10 @@ class Desktop {
         let newWindow;
         this.#dom.addEventListener('new-window', (e) => {
             newWindow = new NewWindow();
-            debugger;
-            // this.#dom.appendChild(window.getDom());
+            this.#dom.appendChild(window.getDom());
         });
-        this.#dom.addEventListener('delete-window', () => {
-            // e.detail.windowDom.remove();
-            newWindow = null;
+        this.#dom.addEventListener('delete-window', (e) => {
+            e.detail.windowDom.remove();
         })
     }
 
@@ -182,12 +180,12 @@ class NewWindow {
         const event = new DraggableHandler(this.#dom, {xbox: true});
         const mouseClickEvent = this.#xbox.addEventListener('click', () => {
             console.log("delete-window 호출중....");
-                this.#dom.dispatchEvent(new CustomEvent('delete-window', {
-                    bubbles: true,
-                    detail: {
-                        windowDom: this.#dom
-                    }
-                }));
+            this.#dom.dispatchEvent(new CustomEvent('delete-window', {
+                bubbles: true,
+                detail: {
+                    windowDom: this.#dom
+                }
+            }));
             // }
         })
     }
@@ -334,27 +332,18 @@ class DraggableHandler {
 
     addDblClick() {
         this.#dom.addEventListener('dblclick', e => {
-            console.log("new-window 호출중....");
-            // TODO : new-window 100만개 호출
-            for (let i = 0; i < 1000000; i++) {
-                this.#dom.dispatchEvent(new CustomEvent("new-window", {
-                    bubbles: true,
-                    detail: {
-                        dom: this.#dom
-                    }
-                }));
-            }
-            debugger;
-            console.log("delete-window 호출중....");
-            for(let i=0;i<1000000;i++){
-                this.#dom.dispatchEvent(new CustomEvent("delete-window", {
-                    bubbles: true,
-                    detail: {
-                        dom: this.#dom
-                    }
-                }));
-            }
-            console.log("호출 완료");
+            this.#dom.dispatchEvent(new CustomEvent("new-window", {
+                bubbles: true,
+                detail: {
+                    dom: this.#dom
+                }
+            }));
+            this.#dom.dispatchEvent(new CustomEvent("delete-window", {
+                bubbles: true,
+                detail: {
+                    dom: this.#dom
+                }
+            }));
         });
     }
 }

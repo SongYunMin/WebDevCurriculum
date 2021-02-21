@@ -3,32 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
+    <script src="./Button.js"></script>
     <script src="./notepad.js"></script>
     <script src="./header.js"></script>
+    <script src="./EventListener.js"></script>
 </head>
 <body>
-<section class="desktop">
-    <article class="tab1"></article>
+
+<header class="notepad-header">
+
+</header>
+
+<section class="notepad-section">
+    <nav class="notepad-nav">
+
+    </nav>
 </section>
 
 <template class="template-header">
-    <header class="main-header">
+    <section class="main-header">
+        <button class="addTabBT" type=button>탭 추가</button>
         <ul class="tabList">
 
         </ul>
-    </header>
+    </section>
 </template>
 
 <template class="template-tabBT">
     <li class="tabBT-li">
-        <button class="tabBT-bt">TEST</button>
+        <button class="tabBT-bt"></button>
     </li>
 </template>
 
+<template class="template-notepad">
+    <article class="notepadTab">
+        <label>
+            <textarea class="notepadMemo"></textarea>
+        </label>
+    </article>
+</template>
+
+<template class="template-button">
+    <button class="newNoteBT">새 메모</button>
+    <button class="loadBT">불러오기</button>
+    <button class="modifyBT">수정</button>
+</template>
 
 <script>
     let notepad = new Notepad(
-        document.querySelector('.tab1')
+        document.querySelector('.notepad-header'),
+        document.querySelector('.notepad-section')
     );
 </script>
 </body>
