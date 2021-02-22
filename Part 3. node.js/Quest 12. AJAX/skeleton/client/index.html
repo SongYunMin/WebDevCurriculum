@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
-    <script src="./Button.js"></script>
-    <script src="./notepad.js"></script>
-    <script src="./header.js"></script>
-    <script src="./EventListener.js"></script>
+    <script src="./Tab.js"></script>
+    <script src="./NavButton.js"></script>
+    <script src="./Notepad.js"></script>
+    <script src="./Header.js"></script>
 </head>
 <body>
 
@@ -15,9 +15,7 @@
 </header>
 
 <section class="notepad-section">
-    <nav class="notepad-nav">
 
-    </nav>
 </section>
 
 <template class="template-header">
@@ -29,24 +27,27 @@
     </section>
 </template>
 
+<template class="template-button">
+    <nav class="notepad-nav">
+        <button class="navBT loadBT">불러오기</button>
+        <button class="navBT saveBT">저장</button>
+    </nav>
+</template>
+
 <template class="template-tabBT">
     <li class="tabBT-li">
         <button class="tabBT-bt"></button>
     </li>
 </template>
 
+<!-- TODO : Title, Memo CSS 수정 -->
 <template class="template-notepad">
     <article class="notepadTab">
         <label>
-            <textarea class="notepadMemo"></textarea>
+            <input type="text" class="notepadTitle" placeholder="제목을 입력하세요"/>
+            <textarea class="notepadMemo" placeholder="메모를 입력하세요"></textarea>
         </label>
     </article>
-</template>
-
-<template class="template-button">
-    <button class="newNoteBT">새 메모</button>
-    <button class="loadBT">불러오기</button>
-    <button class="modifyBT">수정</button>
 </template>
 
 <script>

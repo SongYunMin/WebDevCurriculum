@@ -4,7 +4,6 @@ class Header {
     #headerTabLi
     #headerTabButton
     #addTabButton
-    eventHandler
     TAB_COUNT
     TAB_LIMIT
 
@@ -12,10 +11,8 @@ class Header {
         this.TAB_COUNT = 1;
         this.TAB_LIMIT = 5;
         this.prepareDom();
-        this.addTabButton();
-        this.eventHandler = new EventListener();
-        this.addTab();
-        this.listenTabEvent();
+        this.addHeaderTabButton();
+        this.addHeaderTabListener();
     }
 
     prepareDom() {
@@ -26,8 +23,7 @@ class Header {
         this.#headerTabList = this.#headerDom.querySelector('.tabList');
     }
 
-    // 새 탭을 추가하는 메소드
-    addTabButton() {
+    addHeaderTabButton() {
         console.log("탭 추가");
         const t = document.querySelector('.template-tabBT');
         const tmpl = document.importNode(t.content, true);
@@ -42,21 +38,19 @@ class Header {
     }
 
     // 탭 추가 클릭 이벤트
-    addTab() {
+    addHeaderTabListener() {
         this.#addTabButton.addEventListener('click', ()=>{
             console.log("addTabButton Event");
             if(this.TAB_COUNT >= this.TAB_LIMIT + 1){
                 alert("탭은 다섯개 이상 추가할 수 없습니다.");
             }else {
-                this.addTabButton();
+                this.addHeaderTabButton();
             }
         });
     }
 
-    // 탭 변경 클릭 이벤트
-    listenTabEvent(){
-        this.#headerTabList.addEventListener('click', (e)=>{
-        });
+    addHeader(header){
+        header.appendChild(this.#headerDom);
     }
 
     getHeaderDom() {
