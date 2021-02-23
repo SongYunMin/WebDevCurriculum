@@ -25,6 +25,8 @@ class Notepad {
         this.makeNavigation();
         this.addNotepadTab();
         this.changeTab();
+        // this.saveButtonListener();
+        // this.loadButtonListener();
     }
 
     makeHeader(){
@@ -45,14 +47,32 @@ class Notepad {
             if(!(this.TAB_COUNT >= this.TAB_LIMIT + 1)){
                 this.#tabInstance.addTab(this.#notepadDom);
                 this.#navButtonInstance.addNav(this.#notepadDom);
+                // const instance = new NavButton();
             }
         });
     }
 
+    // TODO : 초기화 할때 changeTab
     changeTab(){
         const changeTab = this.#headerInstance.getHeaderTabList();
         changeTab.addEventListener('click', (e)=>{
             this.#tabInstance.changeTab(this.#notepadDom, e.target);
         });
     }
+
+    // saveButtonListener(){
+    //     const saveEvent = this.#navButtonInstance.getSaveDom();
+    //     saveEvent.addEventListener('click', ()=>{
+    //         console.log("test (save)");
+    //
+    //     });
+    // }
+    //
+    // loadButtonListener(){
+    //     const saveEvent = this.#navButtonInstance.getLoadDom();
+    //     saveEvent.addEventListener('click', ()=>{
+    //         console.log("Load Button!");
+    //     });
+    // }
+
 }

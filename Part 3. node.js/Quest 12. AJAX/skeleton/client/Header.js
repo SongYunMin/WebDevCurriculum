@@ -23,6 +23,18 @@ class Header {
         this.#headerTabList = this.#headerDom.querySelector('.tabList');
     }
 
+    // 탭 추가 클릭 이벤트
+    addHeaderTabListener() {
+        this.#addTabButton.addEventListener('click', ()=>{
+            console.log("addTabButton Event");
+            if(this.TAB_COUNT >= this.TAB_LIMIT + 1){
+                alert("탭은 다섯개 이상 추가할 수 없습니다.");
+            }else {
+                this.addHeaderTabButton();
+            }
+        });
+    }
+
     addHeaderTabButton() {
         console.log("탭 추가");
         const t = document.querySelector('.template-tabBT');
@@ -35,18 +47,6 @@ class Header {
         this.#headerTabButton.setAttribute('name',`${this.TAB_COUNT}`);
         this.#headerTabButton.innerHTML = `탭 ${this.TAB_COUNT++}`
         this.#headerTabList.appendChild(this.#headerTabLi);
-    }
-
-    // 탭 추가 클릭 이벤트
-    addHeaderTabListener() {
-        this.#addTabButton.addEventListener('click', ()=>{
-            console.log("addTabButton Event");
-            if(this.TAB_COUNT >= this.TAB_LIMIT + 1){
-                alert("탭은 다섯개 이상 추가할 수 없습니다.");
-            }else {
-                this.addHeaderTabButton();
-            }
-        });
     }
 
     addHeader(header){

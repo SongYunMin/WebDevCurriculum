@@ -35,7 +35,6 @@
     top: 250px;
     left:770px;
     justify-content: center;
-    z-index: 100;
     visibility: visible;
 }
 
@@ -58,8 +57,7 @@
     top:200px;
     width: 100%;
     height: 70%;
-    visibility: visible;
-    /*background: antiquewhite;*/
+    visibility: hidden;
 }
 
 .notepadTitle{
