@@ -21,8 +21,6 @@ class Tab{
         const click = target.getAttribute('name');
         const sectionNodes = notepadDom.childNodes;   // 홀수
         const navNodes = notepadDom.childNodes;       // 짝수
-        console.log(sectionNodes);
-        console.log(navNodes);
 
         for(let i = 1; i<sectionNodes.length; i+=2){
             if(click === sectionNodes[i].getAttribute('name')){
@@ -31,6 +29,7 @@ class Tab{
                 sectionNodes[i].style.visibility = 'hidden';
             }
         }
+
         for(let i = 2; i<navNodes.length;i+=2){
             if(click === navNodes[i].getAttribute('name')){
                 console.log(navNodes[i]);
