@@ -4,6 +4,7 @@ class NavButton {
     #saveDom
     #title
     #memo
+    #ajaxInstance
 
     TAB_COUNT
     TAB_LIMIT
@@ -11,6 +12,8 @@ class NavButton {
     constructor() {
         this.TAB_COUNT = 1;
         this.TAB_LIMIT = 5;
+        this.#ajaxInstance = new Ajax();
+
     }
 
     addNav(notepadDom) {
@@ -42,23 +45,27 @@ class NavButton {
                 const tabTitleList = document.querySelector('.tabList').childNodes;
 
                 // Title, Memo 추출
-                for (let i = 1; i < notepadList.length; i+=2) {
-                    if(e.target.getAttribute('name') ===
-                    notepadList[i].getAttribute('name')) {
+                for (let i = 1; i < notepadList.length; i += 2) {
+                    if (e.target.getAttribute('name') ===
+                        notepadList[i].getAttribute('name')) {
                         this.#title = notepadList[i].querySelector('.notepadTitle').value;
                         this.#memo = notepadList[i].querySelector('.notepadMemo').value;
                     }
                 }
 
                 // 탭 제목 변경
-                for(let i=1;i<tabTitleList.length; i++){
-                    if(e.target.getAttribute('name') ===
-                    tabTitleList[i].getAttribute('name')){
+                for (let i = 1; i < tabTitleList.length; i++) {
+                    if (e.target.getAttribute('name') ===
+                        tabTitleList[i].getAttribute('name')) {
                         tabTitleList[i].innerHTML =
                             `<button class="tabBT-bt" name=${i}>${this.#title}</button>`;
                     }
                 }
-
+                // this.#ajaxInstance.ajaxRequest('/save', 'json', 'POST',
+                //     {
+                //         title: this.#title,
+                //         memo: this.#memo
+                //     });
                 // TODO : 클래스 따로 만들어서 인스턴스화 해도 괜찮을듯?
                 $.ajax({
                     url: '/save',
