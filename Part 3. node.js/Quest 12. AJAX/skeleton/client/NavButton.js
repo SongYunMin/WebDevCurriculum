@@ -7,6 +7,7 @@ class NavButton {
         this.#TAB_COUNT = count;
         this.prepareDom();
         this.setElementAttribute();
+        this.changeTitle();
     }
 
     prepareDom(){
@@ -23,5 +24,14 @@ class NavButton {
 
     setElementAttribute(){
         this.#navDom.setAttribute('name', this.#TAB_COUNT);
+    }
+
+    changeTitle(){
+        this.#saveBT.addEventListener('click',(e)=>{
+            e.target.dispatchEvent(new CustomEvent('changeTitle', {
+                bubbles: true,
+                detail: e.target.parentNode.getAttribute('name')
+            }))
+        })
     }
 }
