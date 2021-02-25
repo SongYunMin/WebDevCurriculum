@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="./Ajax.js"></script>
-    <script src="./Tab.js"></script>
+    <script src="./Tabs.js"></script>
+    <script src="./TabButton.js"></script>
     <script src="./NavButton.js"></script>
-    <script src="./Notepad.js"></script>
+    <script src="./Monitor.js"></script>
     <script src="./Header.js"></script>
 </head>
 <body>
 
-<header class="notepad-header">
+<div class="monitor">
+    <div class="tab">
 
-</header>
+    </div>
+    <div class="nav">
 
-<section class="notepad-section">
-
-</section>
+    </div>
+</div>
 
 <template class="template-header">
     <section class="main-header">
@@ -29,21 +30,13 @@
     </section>
 </template>
 
-<template class="template-button">
-    <nav class="notepad-nav">
-        <button class="navBT loadBT">불러오기</button>
-        <button class="navBT saveBT">저장</button>
-    </nav>
-</template>
-
 <template class="template-tabBT">
     <li class="tabBT-li">
         <button class="tabBT-bt"></button>
     </li>
 </template>
 
-<!-- TODO : Title, Memo CSS 수정 -->
-<template class="template-notepad">
+<template class="template-tab">
     <article class="notepadTab">
         <label>
             <input type="text" class="notepadTitle" placeholder="제목을 입력하세요"/>
@@ -52,10 +45,16 @@
     </article>
 </template>
 
+<template class="template-nav">
+    <nav class="notepad-nav">
+        <button class="navBT loadBT">불러오기</button>
+        <button class="navBT saveBT">저장</button>
+    </nav>
+</template>
+
 <script>
-    let notepad = new Notepad(
-        document.querySelector('.notepad-header'),
-        document.querySelector('.notepad-section')
+    let monitor = new Monitor(
+        document.querySelector('.monitor')
     );
 </script>
 </body>
