@@ -217,7 +217,7 @@ class ButtonHandler {
         return this.#dom;
     }
 
-    getImgDom() {
+    getImgDom(){
         return this.#subdom;
     }
 

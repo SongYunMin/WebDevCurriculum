@@ -45,7 +45,7 @@
     display: flex;
     position: absolute;
     top: 250px;
-    left:770px;
+    left:46%;
     justify-content: center;
     visibility: visible;
 }
@@ -65,7 +65,7 @@
 .notepadTitle{
     position: absolute;
     top: 165px;
-    left: 36%;
+    left: 40%;
     width: 500px;
     height: 70px;
     font-size: 20px;
@@ -75,7 +75,7 @@
     position: absolute;
     resize: none;
     top: 250px;
-    left: 36%;
+    left: 40%;
     width: 500px;
     height: 300px;
 }

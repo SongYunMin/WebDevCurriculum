@@ -43,6 +43,7 @@ class NavButton {
     loadNotepad(){
         let xhr = new XMLHttpRequest();
         this.#loadBT.addEventListener('click', (e)=>{
+            const search = prompt("불러올 파일의 제목을 입력하세요.");
             xhr.onload = function(){
                 if(xhr.status === 200 || xhr.status === 201){
                     console.log(xhr.responseText);
@@ -50,7 +51,6 @@ class NavButton {
                     console.error(xhr.responseText);
                 }
             }
-            console.log("Load Notepad!!");
             xhr.open('GET', 'http://localhost:8080/load');
             xhr.send();
         });
@@ -63,6 +63,8 @@ class NavButton {
         })
     }
 
+
+    // TODO : Save 할 때 JSON 배열에 저장해야 함
     saveEvent(data){
         this.#saveData = data;
         let xhr = new XMLHttpRequest();
