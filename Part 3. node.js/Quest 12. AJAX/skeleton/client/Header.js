@@ -40,12 +40,12 @@ class Header {
         });
     }
 
-    changeTitle(index, title){
+    changeTitle(index, data){
         const tabList = this.#headerTabList.childNodes;
         for(let i=1;i<tabList.length;i++){
             if(index === tabList[i].getAttribute('name')){
                 const titleBT = tabList[i].querySelector('.tabBT-bt');
-                titleBT.innerHTML = `${title}`;
+                titleBT.innerHTML = `${data.title}`;
             }
         }
     }

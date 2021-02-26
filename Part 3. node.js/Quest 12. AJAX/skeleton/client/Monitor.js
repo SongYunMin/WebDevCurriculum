@@ -1,6 +1,3 @@
-/*
-1개의 monitor 는 1개의 Header 를 가질 수 있음
- */
 
 class Monitor {
     #monitorDom
@@ -66,8 +63,15 @@ class Monitor {
             for(let i=1;i<tabList.length;i++){
                 if(e.detail === tabList[i].getAttribute('name')) {
                     const titleNode = tabList[i].querySelector('.notepadTitle');
+                    const memoNode = tabList[i].querySelector('.notepadMemo');
                     const title = titleNode.value;
-                    this.#headerDom.changeTitle(tabList[i].getAttribute('name'),title);
+                    const memo = memoNode.value;
+                    let data = {
+                        title : title,
+                        memo : memo
+                    }
+                    this.#headerDom.changeTitle(tabList[i].getAttribute('name'),data);
+                    this.#navButtonDom.saveEvent(data);
                 }
             }
         });
