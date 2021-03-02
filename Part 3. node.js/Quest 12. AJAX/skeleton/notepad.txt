@@ -1,1 +1,1 @@
-{"title":"wqerrqwewq","memo":"eewqeqwrwqeqwe"}{"title":"메모장 연습","memo":"ewqewqeqw"}{"title":"메모장 연습","memo":"ewqewqeqw"}
+{"table":[{"title":"안녕하세요","memo":"Hello World"},{"title":"저장저장","memo":"Save"},{"title":"안녕히 가세요","memo":"잘하자"},{"title":"자바스크립트","memo":"잘하자"},{"title":"자바스크립트","memo":"잘하자"}]}

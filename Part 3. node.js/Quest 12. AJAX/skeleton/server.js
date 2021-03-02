@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(express.static('client'));
 
+// TODO : 읽는 곳에 문제 있는 듯 함
 fs.access('./notepad.txt', fs.constants.F_OK, (err => {
     if (err) {
         fs.writeFile('./notepad.txt', '', (err) => {

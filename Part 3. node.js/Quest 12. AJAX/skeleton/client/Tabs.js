@@ -37,4 +37,32 @@ class Tabs {
             }
         }
     }
+
+    changeTab(click, tabs, navs){
+        for(let i=0;i<tabs.length;i++){
+            if(click === tabs[i].getAttribute('name')){
+                tabs[i].style.visibility = 'visible';
+            }else{
+                tabs[i].style.visibility = 'hidden';
+            }
+        }
+        for(let i=0;i<navs.length;i++){
+            if(click === navs[i].getAttribute('name')){
+                navs[i].style.visibility = 'visible';
+            }else{
+                navs[i].style.visibility = 'hidden';
+            }
+        }
+    }
+
+    changeTabTitle(click, tabs){
+        for(let i=0;i<tabs.length;i++) {
+            if (click === tabs[i].getAttribute('name')) {
+                return {
+                    title: tabs[i].querySelector('.notepadTitle').value,
+                    memo: tabs[i].querySelector('.notepadMemo').value
+                };
+            }
+        }
+    }
 }

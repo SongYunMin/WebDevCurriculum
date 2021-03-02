@@ -19,7 +19,6 @@ class Header {
         this.#headerTabList = this.#headerDom.querySelector('.tabList');
     }
 
-    // 탭 추가 버튼 이벤트
     makeTab(){
         this.#headerAddBT.addEventListener('click', (e)=>{
             if(this.#TAB_COUNT >= this.#TAB_LIMIT+1){
@@ -27,11 +26,11 @@ class Header {
             } else {
                 const tabButton = new TabButton(this.#TAB_COUNT);
                 this.#headerTabList.appendChild(tabButton.getDom());
-                this.#headerAddBT.dispatchEvent(new CustomEvent('addTabs', {
+                this.#headerAddBT.dispatchEvent(new CustomEvent('custom-addTabs', {
                     bubbles: true,
                     detail: this.#TAB_COUNT
                 }));
-                this.#headerAddBT.dispatchEvent(new CustomEvent('addNavs', {
+                this.#headerAddBT.dispatchEvent(new CustomEvent('custom-addNavs', {
                     bubbles: true,
                     detail: this.#TAB_COUNT
                 }))

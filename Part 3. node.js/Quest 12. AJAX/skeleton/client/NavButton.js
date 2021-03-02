@@ -31,7 +31,7 @@ class NavButton {
 
     changeTitle() {
         this.#saveBT.addEventListener('click', (e) => {
-            e.target.dispatchEvent(new CustomEvent('changeTitle', {
+            e.target.dispatchEvent(new CustomEvent('custom-changeTitle', {
                 bubbles: true,
                 detail: e.target.parentNode.getAttribute('name')
             }));
@@ -45,15 +45,13 @@ class NavButton {
             for(let i = 1; i < Nodes.length;i++){
                 if(index === Nodes[i].getAttribute('name')){
                     targetNode = Nodes[i];
-                    console.log(targetNode);
                 }
             }
             const data = {
                 result : result,
                 targetNode : targetNode
             }
-            // [Fix] Target을 이용하여 Index전달
-            target.dispatchEvent(new CustomEvent('loadTab', {
+            target.dispatchEvent(new CustomEvent('custom-loadTab', {
                 bubbles: true,
                 detail: data
             }))
@@ -64,14 +62,13 @@ class NavButton {
         let xhr = new XMLHttpRequest();
         this.#loadBT.addEventListener('click', (e) => {
             const index = e.target.parentNode.getAttribute('name');
-            const search = prompt("불러올 파일의 제목을 입력하세요.");
+            const search = prompt("불러올 메모의 제목을 입력하세요.");
             xhr.onload = function () {
                 if (xhr.status === 200 || xhr.status === 201) {
                     if (xhr.responseText === 'False') {
                         alert("저장된 제목이 없습니다.");
                         return -1;
                     } else {
-                        alert("성공!");
                         callback(xhr.responseText, index, e.target);  // [FIX] Callback 을 이용하여 해결
                     }
                 } else {
