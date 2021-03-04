@@ -71,6 +71,8 @@ class NavButton {
                 })
                 .catch(err => {
                     console.error(err);
+                    alert("저장된 파일이 없습니다.");
+                    return -1;
                 });
 
         });
