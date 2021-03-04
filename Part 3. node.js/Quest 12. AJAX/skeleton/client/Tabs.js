@@ -26,14 +26,13 @@ class Tabs {
     }
 
     changeNotepad(data, target, tabs){
-        const jsonData = JSON.parse(data);
         const index = target.getAttribute('name');
         for(let i=0;i<tabs.length;i++){
             if(index === tabs[i].getAttribute('name')){
                 const title = tabs[i].querySelector('.notepadTitle');
                 const memo = tabs[i].querySelector('.notepadMemo');
-                title.value = `${jsonData.title}`;
-                memo.value = `${jsonData.memo}`;
+                title.value = `${data.title}`;
+                memo.value = `${data.memo}`;
             }
         }
     }

@@ -20,7 +20,7 @@ class Header {
     }
 
     makeTab(){
-        this.#headerAddBT.addEventListener('click', (e)=>{
+        this.#headerAddBT.addEventListener('click', ()=>{
             if(this.#TAB_COUNT >= this.#TAB_LIMIT+1){
                 alert("탭은 다섯개 이상 생성할 수 없습니다.");
             } else {

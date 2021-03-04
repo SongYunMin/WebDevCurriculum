@@ -28,6 +28,7 @@ class Monitor {
 
     makeTabs() {
         this.#monitorDom.addEventListener('custom-addTabs', (e) => {
+            // tabDom은 Dom 이 아니라 클래스
             this.#tabDom = new Tabs(e.detail);
             this.#tabsDom.appendChild(this.#tabDom.getDom());
             this.#tabsArray.push(this.#tabDom.getDom());
@@ -52,14 +53,13 @@ class Monitor {
     changeTitle() {
         document.addEventListener('custom-changeTitle', (e) => {
             const data = this.#tabDom.changeTabTitle(e.detail, this.#tabsArray);
-            this.#headerDom.changeTitle(e.detail, data);
+            this.#headerDom.changeTitle(e.detail, data, this.#tabsArray);
             this.#navDom.saveEvent(data);
         });
     }
 
     loadTab() {
         this.#navDom.getDom().addEventListener('custom-loadTab', (e) => {
-            const index = e.detail.targetNode.getAttribute('name');
             this.#tabDom.changeNotepad(e.detail.result, e.detail.targetNode, this.#tabsArray);
         });
     }
