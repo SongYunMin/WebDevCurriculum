@@ -3,8 +3,8 @@ class Monitor {
     #tabsDom
     #navsDom
     #headerDom
-    #tabDom
-    #navDom
+    #tab
+    #nav
     #tabsArray
     #navsArray
 
@@ -28,39 +28,38 @@ class Monitor {
 
     makeTabs() {
         this.#monitorDom.addEventListener('custom-addTabs', (e) => {
-            // tabDom은 Dom 이 아니라 클래스
-            this.#tabDom = new Tabs(e.detail);
-            this.#tabsDom.appendChild(this.#tabDom.getDom());
-            this.#tabsArray.push(this.#tabDom.getDom());
+            this.#tab = new Tabs(e.detail);
+            this.#tabsDom.appendChild(this.#tab.getDom());
+            this.#tabsArray.push(this.#tab.getDom());
         });
     }
 
     makeNav() {
         this.#monitorDom.addEventListener('custom-addNavs', (e) => {
-            this.#navDom = new NavButton(e.detail);
-            this.#navsDom.appendChild(this.#navDom.getDom());
-            this.#navsArray.push(this.#navDom.getDom());
+            this.#nav = new NavButton(e.detail);
+            this.#navsDom.appendChild(this.#nav.getDom());
+            this.#navsArray.push(this.#nav.getDom());
             this.loadTab();
         });
     }
 
     changeTab() {
         document.addEventListener('custom-changeTab', (e) => {
-            this.#tabDom.changeTab(e.detail, this.#tabsArray, this.#navsArray);
+            this.#tab.changeTab(e.detail, this.#tabsArray, this.#navsArray);
         });
     }
 
     changeTitle() {
         document.addEventListener('custom-changeTitle', (e) => {
-            const data = this.#tabDom.changeTabTitle(e.detail, this.#tabsArray);
+            const data = this.#tab.changeTabTitle(e.detail, this.#tabsArray);
             this.#headerDom.changeTitle(e.detail, data, this.#tabsArray);
-            this.#navDom.saveEvent(data);
+            this.#nav.saveEvent(data);
         });
     }
 
     loadTab() {
-        this.#navDom.getDom().addEventListener('custom-loadTab', (e) => {
-            this.#tabDom.changeNotepad(e.detail.result, e.detail.targetNode, this.#tabsArray);
+        this.#nav.getDom().addEventListener('custom-loadTab', (e) => {
+            this.#tab.changeNotepad(e.detail.result, e.detail.targetNode, this.#tabsArray);
         });
     }
 }
