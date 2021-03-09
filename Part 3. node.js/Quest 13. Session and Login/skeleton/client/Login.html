@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./Login.js"></script>
+</head>
+<body>
+<header class="title">
+    <p>로그인</p>
+</header>
+<article class="login">
+    <ul class="loginBox">
+        <li>
+            <span>아이디</span>
+            <input type="text" class="login-id"/>
+        </li>
+        <li>
+            <span>패스워드</span>
+            <input type="password" class="login-pw">
+        </li>
+    </ul>
+    <button class="submit">로그인</button>
+    <script>
+        let login = new Login(document.querySelector('.login'));
+    </script>
+</article>
+</body>
+</html>
