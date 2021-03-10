@@ -59,7 +59,6 @@ class Monitor {
         }));
         this.#headerDom.changeTitle(String(this.#initData.activeIndex), this.#initData.notepad);
         this.#tab.initNotepad(this.#initData.notepad, this.#initData.activeIndex, this.#tabsArray);
-
     }
 
     makeHeader(header) {

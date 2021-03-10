@@ -3,7 +3,6 @@ class NavButton {
     #saveBT
     #loadBT
     #TAB_COUNT
-    #saveData
 
     constructor(count) {
         this.#TAB_COUNT = count;
