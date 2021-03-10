@@ -97,7 +97,6 @@ class Monitor {
                 activeIndex : this.#tab.getActiveIndex()
             };
             this.#headerDom.changeTitle(e.detail.index, data.tab);
-
             this.#nav.saveEvent(data).then(r => {
                 console.log(r);
             });

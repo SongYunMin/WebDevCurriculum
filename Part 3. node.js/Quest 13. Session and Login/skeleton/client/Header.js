@@ -67,11 +67,9 @@ class Header {
     logoutResult(){
         this.logoutRequest(function(result){
             if(result === 'OK'){
-                console.log(result);
                 alert("로그아웃 되었습니다.");
                 location.href = "Login.html";
             }else{
-                console.log(result);
                 alert("Error!");
             }
         });

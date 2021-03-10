@@ -101,6 +101,7 @@ app.post('/save-notepad', (req, res) => {
     req.session.user.count = req.body.count;
     req.session.user.activeIndex = req.body.activeIndex;
     req.session.user.notepad = input;           // 마지막 노트패드 값
+
     try {
         fs.accessSync(`./data/notepad/${req.body.notepad.title}.txt`, fs.constants.F_OK);
     } catch {
@@ -114,16 +115,13 @@ app.post('/save-notepad', (req, res) => {
     }
 
 
-    fs.readFile(`./data/notepad/${req.body.notepad.title}.txt`, 'UTF-8', function (err, data) {
-        const json = JSON.stringify(input);
-        fs.writeFile(`./data/notepad/${req.body.notepad.title}.txt`, json, function (err) {
-            if (err) {
-                console.log("File Write Error!");
-            } else {
-                console.log("File Write successful!");
-            }
-        });
-    });
+    try{
+        fs.writeFileSync(`./data/notepad/${req.body.notepad.title}.txt`, JSON.stringify(input));
+        console.log("File Write successful!");
+    }catch{
+        console.log("File Write Error!");
+    }
+
     res.redirect("http://localhost:8080/save-user");
 })
 
@@ -156,9 +154,7 @@ app.get('/load', (req, res) => {
     }
     try {
         fs.accessSync(`./data/${req.query.name}.txt`, fs.constants.F_OK);
-        console.log(`Read '${req.query.name}' File`);
     } catch {
-        console.log("FILE_NOT_FOUND");
         res.send(JSON.stringify("FILE_NOT_FOUND"));
         return -1;
     }

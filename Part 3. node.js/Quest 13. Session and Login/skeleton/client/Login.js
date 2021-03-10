@@ -3,7 +3,7 @@ class Login{
     #id
     #pw
     #login
-    #initData
+
     constructor(dom) {
         this.#dom = dom;
         this.#id = this.#dom.querySelector('.login-id');
