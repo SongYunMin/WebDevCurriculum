@@ -28,8 +28,10 @@ class Tabs {
     }
 
     initNotepad(data, index, tabs){
-        tabs[index-1].querySelector('.notepadTitle').value = `${data.title}`;
-        tabs[index-1].querySelector('.notepadMemo').value = `${data.memo}`;
+        for(let i = 0;i < data.length; i++){
+            tabs[data[i].index-1].querySelector('.notepadTitle').value = `${data[i].title}`;
+            tabs[data[i].index-1].querySelector('.notepadMemo').value=`${data[i].memo}`;
+        }
     }
 
     changeNotepad(data, target, tabs) {
@@ -48,7 +50,7 @@ class Tabs {
         for (let i = 0; i < tabs.length; i++) {
             if (click === tabs[i].getAttribute('name')) {
                 tabs[i].style.visibility = 'visible';
-                this.#activeIndex = i+1;          // 0 Index
+                this.#activeIndex = i+1;
             } else {
                 tabs[i].style.visibility = 'hidden';
             }

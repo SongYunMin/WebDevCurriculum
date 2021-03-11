@@ -48,16 +48,17 @@ class Monitor {
             this.#initData = JSON.parse(await data);
             this.initialize();
         }catch{
-            console.log("데아터 없음");
+            return 0;
         }
     }
 
     initialize(){
-        this.#headerDom.init(this.#initData);
+        this.#headerDom.initTabButton(this.#initData);
         document.dispatchEvent(new CustomEvent('custom-changeTab', {
             detail: String(this.#initData.activeIndex)
         }));
-        this.#headerDom.changeTitle(String(this.#initData.activeIndex), this.#initData.notepad);
+
+        this.#headerDom.initTabTitle(this.#initData.notepad)
         this.#tab.initNotepad(this.#initData.notepad, this.#initData.activeIndex, this.#tabsArray);
     }
 
@@ -92,7 +93,6 @@ class Monitor {
         document.addEventListener('custom-changeTitle', (e) => {
             const data = {
                 tab : this.#tab.changeTabTitle(e.detail.index, this.#tabsArray),
-                mouse : e.detail.mouse,
                 count : this.#tab.getTabCount(),
                 activeIndex : this.#tab.getActiveIndex()
             };

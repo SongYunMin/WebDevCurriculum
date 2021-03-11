@@ -2,6 +2,46 @@
 
 }
 
+/* Login.html */
+.title{
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    font-weight: bold ;
+}
+
+.login{
+    display: flex;
+    justify-content: center;
+}
+
+.loginBox{
+    list-style: none;
+}
+
+.loginBoxID{
+    margin-right: 30px;
+    margin-bottom: 15px;
+}
+
+.idName{
+    margin-right: 60px;
+}
+
+.loginBoxPW{
+    margin-right: 30px;
+}
+
+.pwName{
+    margin-right: 10px;
+}
+
+.submit{
+    width: 100px;
+    background: antiquewhite;
+}
+
+/* Notepad.html */
 .notepad-header {
     width: 100%;
     height: 200px;
@@ -42,7 +82,7 @@
 }
 .notepadTab{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     position: absolute;
     top:200px;
     width: 100%;

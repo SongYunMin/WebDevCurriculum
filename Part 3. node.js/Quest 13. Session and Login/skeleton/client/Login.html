@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="./style.css">
     <script src="./Login.js"></script>
 </head>
 <body>
 <header class="title">
-    <p>로그인</p>
+    <p>Notepad Service Login</p>
 </header>
 <article class="login">
     <ul class="loginBox">
-        <li>
-            <span>아이디</span>
-            <input type="text" class="login-id"/>
+        <li class="loginBoxID">
+            <span class="idName">ID</span>
+            <input class="idInput" type="text"/>
         </li>
-        <li>
-            <span>패스워드</span>
-            <input type="password" class="login-pw">
+        <li class="loginBoxPW">
+            <span class="pwName">Password</span>
+            <input class="pwInput" type="password"/>
         </li>
     </ul>
-    <button class="submit">로그인</button>
+    <button class="submit">Sing In</button>
     <script>
         let login = new Login(document.querySelector('.login'));
     </script>

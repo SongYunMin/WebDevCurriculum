@@ -6,19 +6,17 @@ class Login{
 
     constructor(dom) {
         this.#dom = dom;
-        this.#id = this.#dom.querySelector('.login-id');
-        this.#pw = this.#dom.querySelector('.login-pw');
+        this.#id = this.#dom.querySelector('.idInput');
+        this.#pw = this.#dom.querySelector('.pwInput');
         this.#login = this.#dom.querySelector('.submit');
         this.loginResult();
     }
 
     getID(){
-        console.log(this.#id.value);
         return this.#id.value;
     }
 
     getPW(){
-        console.log(this.#pw.value);
         return this.#pw.value;
     }
 

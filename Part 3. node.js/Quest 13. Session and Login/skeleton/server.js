@@ -5,7 +5,7 @@ const fs = require('fs');
 const session = require('express-session');
 
 app.use(express.json());
-app.use(express.static('client'));      // 정적 파일 제공
+app.use(express.static('client'));
 
 app.use(session({
     key: 'sid',
@@ -44,7 +44,6 @@ app.post('/login', (req, res) => {
                 authorized: true
             }
         }
-        console.log(req.session.user);
         res.send(req.session.user.name);
     } else {
         res.send('False');
@@ -74,6 +73,7 @@ app.get('/Notepad', (req, res) => {
         console.log("Session...OK");
         try {
             const userData = fs.readFileSync(`./data/user/${req.session.user.id}.txt`, "UTF-8");
+            console.log(userData);
             res.send(userData);
             return 1;
         } catch {
@@ -92,14 +92,14 @@ app.post('/save-notepad', (req, res) => {
         res.send("Unable to access.");
         return -1;
     }
-    const input = {
-        title: req.body.notepad.title,
-        memo: req.body.notepad.memo
-    }
 
-    req.session.user.mouse = req.body.mouse;
     req.session.user.count = req.body.count;
     req.session.user.activeIndex = req.body.activeIndex;
+    const input = {
+        title: req.body.notepad.title,
+        memo: req.body.notepad.memo,
+        index: req.body.activeIndex
+    }
     req.session.user.notepad = input;           // 마지막 노트패드 값
 
     try {
@@ -114,36 +114,47 @@ app.post('/save-notepad', (req, res) => {
         });
     }
 
-
     try{
         fs.writeFileSync(`./data/notepad/${req.body.notepad.title}.txt`, JSON.stringify(input));
         console.log("File Write successful!");
     }catch{
         console.log("File Write Error!");
     }
-
     res.redirect("http://localhost:8080/save-user");
 })
 
 app.get('/save-user', (req, res) => {
-    // Session Check
     if (!req.session.user) {
-        console.log("Session Not Found");
         res.send("False");
+        return -1;
     }
 
     const data = {
-        id: req.session.user.id,                       // 유저의 이름
-        mouse: req.session.user.mouse,                 // 마우스 위치값
-        count: req.session.user.count,                 // 탭 생성 갯수
-        activeIndex: req.session.user.activeIndex,     // 마지막 수정 Index
-        notepad: req.session.user.notepad              // Notepad 내용
+        id: req.session.user.id,
+        count: req.session.user.count,
+        activeIndex: req.session.user.activeIndex,
+        notepad : []
     }
 
-    fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
-    console.log("Create User Session Data");
-    res.end();
-})
+    try {
+        const existingData = JSON.parse(fs.readFileSync(`./data/user/${req.session.user.id}.txt`, 'UTF-8'));
+        for(let i=0;i<existingData.notepad.length;i++){
+            if(existingData.notepad[i].index === data.activeIndex){
+                existingData.notepad.splice(i,1);
+            }
+        }
+        existingData.notepad.push(req.session.user.notepad);
+        data.notepad = existingData.notepad;
+        fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
+        res.send(data);
+        return 1;
+    } catch (err) {
+        data.notepad.push(req.session.user.notepad);
+        fs.writeFileSync(`./data/user/${req.session.user.id}.txt`, JSON.stringify(data), 'UTF-8');
+        res.send(data);
+        return -1;
+    }
+});
 
 // Load Function
 app.get('/load', (req, res) => {
@@ -152,14 +163,16 @@ app.get('/load', (req, res) => {
         res.send("Unable to access.");
         return -1;
     }
+
     try {
-        fs.accessSync(`./data/${req.query.name}.txt`, fs.constants.F_OK);
+        fs.accessSync(`./data/notepad/${req.query.name}.txt`, fs.constants.F_OK);
     } catch {
+        console.log("FILE_NOT_FOUND")
         res.send(JSON.stringify("FILE_NOT_FOUND"));
         return -1;
     }
 
-    fs.readFile(`./data/${req.query.name}.txt`, 'UTF-8', function (err, data) {
+    fs.readFile(`./data/notepad/${req.query.name}.txt`, 'UTF-8', function (err, data) {
         const textData = JSON.parse(data);
         res.send(textData);
         return 1;

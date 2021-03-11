@@ -5,6 +5,7 @@ class Header {
     #headerTabList
     #TAB_COUNT
     #TAB_LIMIT
+
     constructor() {
         this.#TAB_COUNT = 1;
         this.#TAB_LIMIT = 5;
@@ -22,9 +23,9 @@ class Header {
         this.#headerTabList = this.#headerDom.querySelector('.tabList');
     }
 
-    makeTab(){
-        this.#headerAddBT.addEventListener('click', ()=>{
-            if(this.#TAB_COUNT >= this.#TAB_LIMIT+1){
+    makeTab() {
+        this.#headerAddBT.addEventListener('click', () => {
+            if (this.#TAB_COUNT >= this.#TAB_LIMIT + 1) {
                 alert("탭은 다섯개 이상 생성할 수 없습니다.");
             } else {
                 const tabButton = new TabButton(this.#TAB_COUNT);
@@ -42,47 +43,52 @@ class Header {
         });
     }
 
-    init(initData){
-        for(let i=0;i<initData.count;i++) {
+    initTabButton(initData) {
+        for (let i = 0; i < initData.count; i++) {
             this.#headerAddBT.dispatchEvent(new Event('click'));
         }
+    }
 
+    initTabTitle(data) {
+        const tabList = this.#headerTabList.childNodes;
+        for (let i = 0; i < data.length; i++) {
+            tabList[data[i].index].querySelector('.tabBT-bt').innerHTML = `${data[i].title}`
+        }
     }
 
 
-    changeTitle(index, data){
+    changeTitle(index, title) {
         const tabList = this.#headerTabList.childNodes;
-        for(let i=1;i<tabList.length;i++){
-            if(index === tabList[i].getAttribute('name')){
+        for (let i = 1; i < tabList.length; i++) {
+            if (index === tabList[i].getAttribute('name')) {
                 const titleBT = tabList[i].querySelector('.tabBT-bt');
-                titleBT.innerHTML = `${data.title}`;
+                titleBT.innerHTML = `${title.title}`;
             }
         }
     }
 
-    getDom(){
+    getDom() {
         return this.#headerDom;
     }
 
-    logoutResult(){
-        this.logoutRequest(function(result){
-            if(result === 'OK'){
+    logoutResult() {
+        this.logoutRequest(function (result) {
+            if (result === 'OK') {
                 alert("로그아웃 되었습니다.");
                 location.href = "Login.html";
-            }else{
+            } else {
                 alert("Error!");
             }
         });
     }
 
-    logoutRequest(callback){
-        this.#headerLogoutBT.addEventListener('click', async ()=>{
+    logoutRequest(callback) {
+        this.#headerLogoutBT.addEventListener('click', async () => {
             const response = await fetch("http://localhost:8080/logout");
-            if(response.status === 200){
+            if (response.status === 200) {
                 const result = await response.text();
                 callback(result);
             }
-
         })
     }
 }
