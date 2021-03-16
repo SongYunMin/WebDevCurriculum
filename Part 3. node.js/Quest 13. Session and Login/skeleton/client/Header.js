@@ -1,94 +1,74 @@
 class Header {
-    #headerDom
-    #headerAddBT
-    #headerLogoutBT
-    #headerTabList
-    #TAB_COUNT
-    #TAB_LIMIT
+    #dom
 
-    constructor() {
-        this.#TAB_COUNT = 1;
-        this.#TAB_LIMIT = 5;
-        this.prepareDom();
-        this.makeTab();
-        this.logoutResult();
+    constructor(dom) {
+        this.#dom = dom;
+        this.#prepareDom();
+        this.#bindEvents();
     }
 
-    prepareDom() {
+    #prepareDom() {
         const t = document.querySelector('.template-header');
         const tmpl = document.importNode(t.content, true);
-        this.#headerDom = tmpl.querySelector('.main-header');
-        this.#headerAddBT = this.#headerDom.querySelector('.addTabBT');
-        this.#headerLogoutBT = this.#headerDom.querySelector('.logout');
-        this.#headerTabList = this.#headerDom.querySelector('.tabList');
+        this.#dom.appendChild(tmpl);
     }
 
-    makeTab() {
-        this.#headerAddBT.addEventListener('click', () => {
-            if (this.#TAB_COUNT >= this.#TAB_LIMIT + 1) {
-                alert("탭은 다섯개 이상 생성할 수 없습니다.");
-            } else {
-                const tabButton = new TabButton(this.#TAB_COUNT);
-                this.#headerTabList.appendChild(tabButton.getDom());
-                this.#headerAddBT.dispatchEvent(new CustomEvent('custom-addTabs', {
+    #bindEvents() {
+        this.#dom.querySelector('.load').addEventListener('click', async () => {
+            const search = prompt("불러올 메모의 제목을 입력하세요.");
+            const response = await fetch(`http://localhost:8080/load?name=${search}`);
+            if (response.status === 200) {
+                const result = await response.json();
+                this.#dom.dispatchEvent(new CustomEvent('loadTab', {
                     bubbles: true,
-                    detail: this.#TAB_COUNT
+                    detail: {
+                        name: result.title,
+                        memo: result.memo
+                    }
                 }));
-                this.#headerAddBT.dispatchEvent(new CustomEvent('custom-addNavs', {
-                    bubbles: true,
-                    detail: this.#TAB_COUNT
-                }))
-                this.#TAB_COUNT++;
-            }
-        });
-    }
-
-    initTabButton(initData) {
-        for (let i = 0; i < initData.count; i++) {
-            this.#headerAddBT.dispatchEvent(new Event('click'));
-        }
-    }
-
-    initTabTitle(data) {
-        const tabList = this.#headerTabList.childNodes;
-        for (let i = 0; i < data.length; i++) {
-            tabList[data[i].index].querySelector('.tabBT-bt').innerHTML = `${data[i].title}`
-        }
-    }
-
-
-    changeTitle(index, title) {
-        const tabList = this.#headerTabList.childNodes;
-        for (let i = 1; i < tabList.length; i++) {
-            if (index === tabList[i].getAttribute('name')) {
-                const titleBT = tabList[i].querySelector('.tabBT-bt');
-                titleBT.innerHTML = `${title.title}`;
-            }
-        }
-    }
-
-    getDom() {
-        return this.#headerDom;
-    }
-
-    logoutResult() {
-        this.logoutRequest(function (result) {
-            if (result === 'OK') {
-                alert("로그아웃 되었습니다.");
-                location.href = "Login.html";
             } else {
-                alert("Error!");
+                alert("Title not Found");
             }
         });
-    }
 
-    logoutRequest(callback) {
-        this.#headerLogoutBT.addEventListener('click', async () => {
+        this.#dom.querySelector('.save').addEventListener('click', async () => {
+            console.info('save');
+            this.#dom.dispatchEvent(new CustomEvent('saveTab', {
+                bubbles: true
+            }));
+
+        });
+
+        this.#dom.querySelector('.addTabBT').addEventListener('click', () => {
+            this.#dom.dispatchEvent(new CustomEvent('addTab', {
+                bubbles: true
+            }));
+        });
+
+        this.#dom.querySelector('.logout').addEventListener('click', async () => {
             const response = await fetch("http://localhost:8080/logout");
             if (response.status === 200) {
                 const result = await response.text();
-                callback(result);
+                if (result === 'OK') {
+                    alert("로그아웃 되었습니다.");
+                    location.href = "Login.html";
+                } else {
+                    alert("Error!");
+                }
             }
-        })
+        });
+    }
+
+    async saveRequest(data){
+        const response = await fetch(`http://localhost:8080/save-notepad`, {
+            method: "POST",
+            headers : {"Content-Type" : "application/json"},
+            body:JSON.stringify({
+                name:data.name,
+                memo:data.memo,
+                count:data.count,
+                activeIndex:data.activeIndex
+            })
+        });
     }
 }

@@ -1,1 +1,1 @@
-{"id":"1234","mouse":{"x":987,"y":309},"count":4,"activeIndex":3,"notepad":{"title":"안녕하세요","memo":"송윤민입니다."}}
+{"count":5,"activeIndex":4,"notepad":[{"name":"안녕하세요.","memo":"","index":2},{"name":"wqewqe","memo":"qwewqewq","index":3},{"name":"New Tewqewqewqab 28038","memo":"","index":4}]}

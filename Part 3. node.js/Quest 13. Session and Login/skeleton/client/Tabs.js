@@ -1,85 +1,118 @@
+// TabList, Tab 들을 가지고 있음
 class Tabs {
-    #tabsDom
-    #titleDom
-    #memoDom
-    #TAB_COUNT
-    #activeIndex
+    #counter
+    #dom
+    #tabList
+    #selectedTab
 
-    constructor(count) {
-        this.#TAB_COUNT = count;
-        this.prepareDom();
-        this.setElementAttribute();
+    constructor(dom) {
+        this.#counter = 0;
+        this.#dom = dom;
+        this.#tabList = [];
+        this.#selectedTab = null;
+        this.#prepareDom();
+        this.#bindEvents();
     }
 
-    prepareDom() {
-        const t = document.querySelector('.template-tab');
+    #prepareDom() {
+        const t = document.querySelector('.template-tabs');
         const tmpl = document.importNode(t.content, true);
-        this.#tabsDom = tmpl.querySelector('.notepadTab');
-        this.#titleDom = this.#tabsDom.querySelector('.notepadTitle');
-        this.#memoDom = this.#tabsDom.querySelector('.notepadMemo');
+        this.#dom.appendChild(tmpl);
     }
 
-    getDom() {
-        return this.#tabsDom;
-    }
-
-    setElementAttribute() {
-        this.#tabsDom.setAttribute('name', this.#TAB_COUNT);
-    }
-
-    initNotepad(data, index, tabs){
-        for(let i = 0;i < data.length; i++){
-            tabs[data[i].index-1].querySelector('.notepadTitle').value = `${data[i].title}`;
-            tabs[data[i].index-1].querySelector('.notepadMemo').value=`${data[i].memo}`;
+    init(initData){
+        console.log(initData);
+        for(let i=0;i<initData.notepad.length;i++){
+            this.#tabList[initData.notepad[i].index].setName(initData.notepad[i].name);
+            this.#tabList[initData.notepad[i].index].setMemo(initData.notepad[i].memo);
         }
+        this.select(this.#tabList[initData.activeIndex]);
     }
 
-    changeNotepad(data, target, tabs) {
-        const index = target.getAttribute('name');
-        for (let i = 0; i < tabs.length; i++) {
-            if (index === tabs[i].getAttribute('name')) {
-                const title = tabs[i].querySelector('.notepadTitle');
-                const memo = tabs[i].querySelector('.notepadMemo');
-                title.value = `${data.title}`;
-                memo.value = `${data.memo}`;
+    addTab() {
+        const newTab = new Tab(this.#dom, this.#counter++);
+        this.#tabList.push(newTab);
+        return newTab;
+    }
+
+    loadTab({name, memo}) {
+        const newTab = new Tab(this.#dom, this.#counter++);
+        newTab.setName(name);
+        newTab.setMemo(memo);
+        this.#tabList.push(newTab);
+        return newTab;
+    }
+
+    save(data) {
+        for (let i = 0; i < this.#tabList.length; i++) {
+            if (this.#tabList[i].getIndex() === this.#selectedTab.getIndex()) {
+                this.#selectedTab.setName(data.name);
+                this.#selectedTab.setMemo(data.memo);
             }
         }
     }
 
-    changeTab(click, tabs, navs) {
-        for (let i = 0; i < tabs.length; i++) {
-            if (click === tabs[i].getAttribute('name')) {
-                tabs[i].style.visibility = 'visible';
-                this.#activeIndex = i+1;
-            } else {
-                tabs[i].style.visibility = 'hidden';
-            }
-        }
-        for (let i = 0; i < navs.length; i++) {
-            if (click === navs[i].getAttribute('name')) {
-                navs[i].style.visibility = 'visible';
-            } else {
-                navs[i].style.visibility = 'hidden';
-            }
-        }
+    select(tab) {
+        this.#selectedTab = tab;
     }
 
-    changeTabTitle(click, tabs) {
-        for (let i = 0; i < tabs.length; i++) {
-            if (click === tabs[i].getAttribute('name')) {
-                return {
-                    title: tabs[i].querySelector('.notepadTitle').value,
-                    memo: tabs[i].querySelector('.notepadMemo').value
-                };
+    getIndex(){
+        return this.#selectedTab.getIndex();
+    }
+
+    getCount(){
+        return this.#counter;
+    }
+
+    #bindEvents() {
+        this.#dom.addEventListener('closeTab', async (e) => {
+            let i;
+            for (i = 0; i < this.#tabList.length; i++) {
+                if (this.#tabList[i].getIndex() === e.detail.index) {
+                    break;
+                }
             }
-        }
-    }
+            const data = {
+                count : --this.#counter,
+                notepad : this.#tabList[i].getInfo(),
+                index : this.#tabList[i].getIndex()
+            }
+            this.#tabList.splice(i, 1);
 
-    getTabCount(){
-        return this.#TAB_COUNT;
-    }
+            const response = await fetch(`http://localhost:8080/delete?data=${JSON.stringify(data)}`,{
+                method: "GET",
+                headers: {"Content-Type" : "application/json"},
+            });
+            if(response.status === 200){
+                const result = await response.json();
+                if(result.err){
+                    alert("Delete Error!");
+                    return -1;
+                }
+            }
+            this.#dom.dispatchEvent(new CustomEvent('hideEditor',{
+                bubbles:true
+            }));
+            console.log("삭제 후 : ", this.#tabList);
 
-    getActiveIndex(){
-        return this.#activeIndex
+            // if (this.#selectedTab !== null &&
+            //     this.#selectedTab.getIndex() === this.#tabList[i].getIndex()) {
+            //     this.#selectedTab = null;
+            //
+            //     if (this.#tabList.length === 1) {
+            //         this.#dom.dispatchEvent(new CustomEvent('hideEditor', {
+            //             bubbles: true
+            //         }));
+            //     } else if (i !== 0) {
+            //         this.#tabList[0].show();
+            //         this.select(this.#tabList[0]);
+            //     } else {
+            //         this.#tabList[1].show();
+            //         this.select(this.#tabList[1]);
+            //     }
+            // }
+            // this.#tabList.splice(i, 1);
+            // console.log("삭제 후 : ", this.#tabList);
+        });
     }
 }

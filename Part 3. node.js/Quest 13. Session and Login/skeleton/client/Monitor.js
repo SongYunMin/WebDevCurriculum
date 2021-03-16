@@ -1,111 +1,101 @@
 class Monitor {
-    #monitorDom
-    #tabsDom
-    #navsDom
-    #headerDom
-    #tab
-    #nav
-    #tabsArray
-    #navsArray
+    #dom
+    #header
+    #tabs
+    #editor
     #initData
 
-    constructor(monitorDom) {
-        this.#monitorDom = monitorDom;
-        this.checkSessionResult();
-        this.#tabsDom = this.#monitorDom.querySelector('.tab');
-        this.#navsDom = this.#monitorDom.querySelector('.nav');
-        this.#headerDom = new Header();
-        this.#tabsArray = []
-        this.#navsArray = []
-        this.makeHeader(this.#headerDom);
-        this.makeTabs();
-        this.makeNav();
-        this.changeTab();
-        this.changeTitle();
+    constructor(dom) {
+        this.#dom = dom;
+        this.#prepareDom();
+        this.#header = new Header(this.#dom.querySelector('.header'));
+        this.#tabs = new Tabs(this.#dom.querySelector('.tabs'));
+        this.#editor = new Editor(this.#dom.querySelector('.editor'));
+        this.#checkSessionRequest();
+        this.#bindEvents();
     }
 
-    checkSessionResult() {
-        this.#initData = this.checkSessionRequest(async function (result) {
-            if (result === 'False') {
-                alert("비정상 접근입니다. 다시 로그인 해주세요.");
-                location.href = "Login.html";
-            } else {
-                console.log("정상 접근");
-            }
-        });
+    #prepareDom () {
+        const t = document.querySelector('.template-monitor');
+        const tmpl = document.importNode(t.content, true);
+        this.#dom.appendChild(tmpl);
     }
 
-    async checkSessionRequest(callback){
-        const data = (async function() {
+    #checkSessionRequest(){
+        this.#initData = (async function() {
             const response = await fetch("http://localhost:8080/Notepad");
             if(response.status === 200){
                 const result = await response.text();
-                callback(result);
-                return result;
+                if (result === 'False') {
+                    alert("비정상 접근입니다. 다시 로그인 해주세요.");
+                    location.href = "Login.html";
+                } else {
+                    console.log("정상 접근");
+                    return result;
+                }
             }
         })();
-        try{
-            this.#initData = JSON.parse(await data);
-            this.initialize();
-        }catch{
-            return 0;
+        const res = this.#initialize();
+    }
+
+    async #initialize(){
+        const init = JSON.parse(await this.#initData);
+        if(init.DATA === "DATA_NOT_FOUND"){
+            console.log("DATA NOT FOUND");
+        }else {
+            for (let i = 0; i < init.count; i++) {
+                this.#dom.dispatchEvent(new CustomEvent('addTab'));
+            }
+            console.log(init);
+            this.#tabs.init(init);
+            this.#editor.render(init.notepad[init.notepad.length - 1]);
         }
     }
 
-    initialize(){
-        this.#headerDom.initTabButton(this.#initData);
-        document.dispatchEvent(new CustomEvent('custom-changeTab', {
-            detail: String(this.#initData.activeIndex)
-        }));
-
-        this.#headerDom.initTabTitle(this.#initData.notepad)
-        this.#tab.initNotepad(this.#initData.notepad, this.#initData.activeIndex, this.#tabsArray);
-    }
-
-    makeHeader(header) {
-        this.#monitorDom.appendChild(header.getDom());
-    }
-
-    makeTabs() {
-        this.#monitorDom.addEventListener('custom-addTabs', (e) => {
-            this.#tab = new Tabs(e.detail);
-            this.#tabsDom.appendChild(this.#tab.getDom());
-            this.#tabsArray.push(this.#tab.getDom());
+    #bindEvents () {
+        // 탭 추가
+        this.#dom.addEventListener('addTab', () => {
+            const newTab = this.#tabs.addTab();
+            this.#tabs.select(newTab);
+            this.#editor.render(newTab.getInfo());
         });
-    }
 
-    makeNav() {
-        this.#monitorDom.addEventListener('custom-addNavs', (e) => {
-            this.#nav = new NavButton(e.detail);
-            this.#navsDom.appendChild(this.#nav.getDom());
-            this.#navsArray.push(this.#nav.getDom());
-            this.loadTab();
+        // 불러오기 (탭 추가 됨)
+        this.#dom.addEventListener('loadTab', (e) => {
+            const newTab = this.#tabs.loadTab(e.detail);
+            this.#tabs.select(newTab);
+            this.#editor.render(newTab.getInfo());
         });
-    }
 
-    changeTab() {
-        document.addEventListener('custom-changeTab', (e) => {
-            this.#tab.changeTab(e.detail, this.#tabsArray, this.#navsArray);
+        // 다른 탭 클릭 (현재 탭 데이터 Set 하고 가야 함)
+        this.#dom.addEventListener('showTab', e => {
+            const data = this.#editor.saveData();
+            this.#tabs.save(data);          // TODO : 한번씩 밀려야 정상 -> 기존 데이터 저장
+            this.#tabs.select(e.detail.tab)
+            this.#editor.render({
+                name: e.detail.name,
+                memo: e.detail.memo
+            })
         });
-    }
 
-    changeTitle() {
-        document.addEventListener('custom-changeTitle', (e) => {
+        this.#dom.addEventListener('saveTab', async () =>{
+            const notepad= this.#editor.saveData();
+            this.#tabs.save(notepad);
             const data = {
-                tab : this.#tab.changeTabTitle(e.detail.index, this.#tabsArray),
-                count : this.#tab.getTabCount(),
-                activeIndex : this.#tab.getActiveIndex()
-            };
-            this.#headerDom.changeTitle(e.detail.index, data.tab);
-            this.#nav.saveEvent(data).then(r => {
-                console.log(r);
-            });
+                name : notepad.name,
+                memo : notepad.memo,
+                count : this.#tabs.getCount(),
+                activeIndex : this.#tabs.getIndex()
+            }
+            const response = await this.#header.saveRequest(data);
+            if(response === 200) {
+                // TODO : Async Response Callback
+                console.log(response);
+            }
         });
-    }
 
-    loadTab() {
-        this.#nav.getDom().addEventListener('custom-loadTab', (e) => {
-            this.#tab.changeNotepad(e.detail.result, e.detail.targetNode, this.#tabsArray);
+        this.#dom.addEventListener('hideEditor', () => {
+            this.#editor.hide();
         });
     }
 }

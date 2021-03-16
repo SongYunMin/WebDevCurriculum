@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./Login.js"></script>
+</head>
+<body>
+<header class="title">
+    <p>Notepad Service Login</p>
+</header>
+<article class="login">
+    <ul class="loginBox">
+        <li class="loginBoxID">
+            <span class="idName">ID</span>
+            <input class="idInput" type="text"/>
+        </li>
+        <li class="loginBoxPW">
+            <span class="pwName">Password</span>
+            <input class="pwInput" type="password"/>
+        </li>
+    </ul>
+    <button class="submit">Sing In</button>
+    <script>
+        let login = new Login(document.querySelector('.login'));
+    </script>
+</article>
+</body>
+</html>

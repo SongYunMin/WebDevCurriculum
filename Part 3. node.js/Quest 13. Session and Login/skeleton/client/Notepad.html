@@ -3,35 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./style.css">
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="./Tabs.js"></script>
+    <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js"></script> -->
+    <!-- <script src="./Tabs.js"></script>
     <script src="./TabButton.js"></script>
-    <script src="./NavButton.js"></script>
+    <script src="./NavButton.js"></script> -->
     <script src="./Monitor.js"></script>
     <script src="./Header.js"></script>
+    <script src="./Tabs.js"></script>
+    <script src="./Tab.js"></script>
+    <script src="./Editor.js"></script>
 </head>
 <body>
 
 <div class="monitor">
-    <div class="tab">
-
-    </div>
-    <div class="nav">
-
-    </div>
 </div>
 
-<template class="template-header">
-    <section class="main-header">
-        <button class="addTabBT" type=button>탭 추가</button>
-        <button class="logout" type="button">로그아웃</button>
-        <ul class="tabList">
-
-        </ul>
+<template class="template-monitor">
+    <section class="monitor-main">
+        <section class="header"></section>
+        <section class="tabs"></section>
+        <section class="buttons"></section>
+        <section class="editor"></section>
     </section>
 </template>
 
-<template class="template-tabBT">
+<template class="template-header">
+    <section class="main-header">
+        <button class="load" type="button">불러오기</button>
+        <button class="save" type="button">저장하기</button>
+        <button class="addTabBT" type="button">탭 추가</button>
+        <button class="logout" type="button">로그아웃</button>
+    </section>
+</template>
+
+<template class="template-tabs">
+    <ul class="tabs-main"></ul>
+</template>
+
+<template class="template-tab">
+    <li class="tab-main">
+        <button class="tab-button"></button>
+        <button class="close-button">x</button>
+    </li>
+</template>
+
+<template class="template-editor">
+    <article class="editor-main">
+        <label>
+            <input type="text" class="name" placeholder="제목을 입력하세요"/>
+            <textarea class="memo" placeholder="메모를 입력하세요"></textarea>
+        </label>
+    </article>
+</template>
+
+<!-- <template class="template-tabBT">
     <li class="tabBT-li">
         <button class="tabBT-bt"></button>
     </li>
@@ -51,7 +76,7 @@
         <button class="navBT loadBT">불러오기</button>
         <button class="navBT saveBT">저장</button>
     </nav>
-</template>
+</template> -->
 
 <script>
     let monitor = new Monitor(
