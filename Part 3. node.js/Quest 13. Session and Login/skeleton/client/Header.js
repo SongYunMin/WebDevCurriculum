@@ -22,7 +22,7 @@ class Header {
                 this.#dom.dispatchEvent(new CustomEvent('loadTab', {
                     bubbles: true,
                     detail: {
-                        name: result.title,
+                        name: result.name,
                         memo: result.memo
                     }
                 }));
